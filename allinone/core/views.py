@@ -18,29 +18,47 @@ API_KEY = os.getenv("GEMINI_API_KEY")  # Ensure this is set in your .env file or
 
 @csrf_exempt  # Use this only if CSRF token is not required
 def home(request):
-    response_text = None
+    response_text = response_text1 = response_text2 = None  # Set as None instead of default text
 
     if request.method == "POST":
         user_input = request.POST.get("input_text", "").strip()
-
-        # Ensure the input includes instructions
         
-        user_input += " Ingredients (with precise measurements) along with Nutritional values, Step-by-step procedure, Alternative ingredients for improved nutritional benefits only this no other extra information strictly these as per instruction"
+        user_input1 = user_input + " Ingredients (with precise measurements) along with Nutritional values, only this no other extra information strictly these as per instruction"
+        user_input2 = user_input + " step by step procedure, only this no other extra information strictly these as per instruction include heading "
+        user_input3 = user_input + " alternate ingredients for this recipe rather than regular one for health benefits, only this no other extra information strictly these as per instruction inlcude heading while describing also mention how to use it in making breif steps"
 
-        # Call Gemini API
         headers = {"Content-Type": "application/json"}
-        payload = {"contents": [{"parts": [{"text": user_input}]}]}
         params = {"key": API_KEY}
 
-        gemini_response = requests.post(GEMINI_API_URL, headers=headers, json=payload, params=params)
+        payloads = [
+            {"contents": [{"parts": [{"text": user_input1}]}]},
+            {"contents": [{"parts": [{"text": user_input2}]}]},
+            {"contents": [{"parts": [{"text": user_input3}]}]},
+        ]
 
-        if gemini_response.status_code == 200:
-            data = gemini_response.json()
-            response_text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "No response received")
-        else:
-            response_text = f"Error: {gemini_response.status_code} - {gemini_response.text}"
-        response_text = markdown.markdown(response_text)  # Convert Markdown to HTML
-    return render(request, "index.html", {"response": mark_safe(response_text)})
+        responses = []
+        for payload in payloads:
+            try:
+                response = requests.post(GEMINI_API_URL, headers=headers, json=payload, params=params)
+                response.raise_for_status()  # Raise exception for bad responses (4xx, 5xx)
+                data = response.json()
+                text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "").strip()
+
+                if text:  
+                    responses.append(markdown.markdown(text))  # Convert to HTML
+                else:
+                    responses.append(None)  # Avoid rendering an empty box
+
+            except requests.RequestException as e:
+                responses.append(None)  # Avoid rendering errors in UI
+
+        response_text, response_text1, response_text2 = responses
+
+    return render(request, "index.html", {
+        "response": mark_safe(response_text) if response_text else None,
+        "response1": mark_safe(response_text1) if response_text1 else None,
+        "response2": mark_safe(response_text2) if response_text2 else None,
+    })
     
 
 def register(request):
