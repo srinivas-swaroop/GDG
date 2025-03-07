@@ -1,57 +1,21 @@
-<form id="ai-form" method="post">
-    {% csrf_token %}
-    <input type="text" name="input_text" id="input_text" placeholder="Enter your text">
-    <button type="submit">Generate Response</button>
-</form>
-<div id="response"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+</head>
+<body>
+    <h1>Recipe Generator</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="input_text" id="input_text" placeholder="Enter recipe name" required>
+        <button type="submit">Generate Response</button>
+    </form>
 
-<!-- generating response1 -->
-<!-- <script>
-document.getElementById("ai-form").addEventListener("submit", async function(event) {
-    event.preventDefault();
-    
-    let userInput = document.getElementById("input_text").value;
-    
-    let response = await fetch("/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": "{{ csrf_token }}"
-        },
-        body: new URLSearchParams({ input_text: userInput })
-    });
-
-    let data = await response.json();
-    document.getElementById("response").innerText = data.response || data.error;
-});
-</script> -->
-
-<!-- generating response2 -->
-<script>
-    document.getElementById("ai-form").addEventListener("submit", async function(event) {
-        event.preventDefault();
-        
-        let userInput = document.getElementById("input_text").value.trim();
-    
-        
-        if (!userInput.toLowerCase().includes("recipe")) {
-            userInput += "Ingredients (with precise measurements), Nutritional values, Step-by-step procedure, Alternative ingredients for improved nutritional benefits ";
-        }
-    
-        let response = await fetch("/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: new URLSearchParams({ input_text: userInput })  
-        });
-    
-        let data = await response.json();
-        document.getElementById("response").innerText = data.response || data.error;
-    });
-    </script>
-
-
-
-
+    {% if response %}
+        <h2>Generated Recipe:</h2>
+        <p>{{ response|safe }}</p>
+    {% endif %}
+</body>
+</html>
