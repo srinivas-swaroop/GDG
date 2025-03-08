@@ -27,6 +27,7 @@ urlpatterns = [
     path('', homearoma, name='homearoma'),
     path('options/', optionsman, name='optionsman'),
     path('signup/', register, name='signupman'),
+    path('accounts/logout/', logout, name='logout'),
 
     
 ]

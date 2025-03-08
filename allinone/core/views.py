@@ -25,6 +25,9 @@ def homearoma(request):
 def optionsman(request):
     return render(request, "optionsman.html")
 
+def logout(request):
+    return render(request, "homeman.html")
+
 @csrf_exempt  # Use this only if CSRF token is not required
 def home(request):
     response_text = response_text1 = response_text2 = None  # Set as None instead of default text

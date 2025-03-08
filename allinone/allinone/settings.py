@@ -72,10 +72,25 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': True,
     }
 }
-from django.urls import reverse_lazy
 
-SOCIALACCOUNT_LOGIN_ON_GET=True
-LOGIN_REDIRECT_URL= 'http://127.0.0.1:8055/searchai'
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True  # Automatically create account after Google login
+ACCOUNT_USERNAME_REQUIRED = False  # Do not ask for a username
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+SOCIALACCOUNT_EMAIL_VERIFICATION = "optional"
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_ADAPTER = "core.adapters.MySocialAccountAdapter"
+
+
+
+
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8055/searchai'
+
+
 import os
 TEMPLATES = [
     {
@@ -159,4 +174,9 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+ACCOUNT_LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8055/'
+
+
+
 
