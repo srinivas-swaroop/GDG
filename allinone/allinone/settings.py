@@ -64,7 +64,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
             'client_id': '311257677681-b2qp7ffffmgq6lei4qhsjmb4nklmbd9o.apps.googleusercontent.com',
-            'secret': ' ',
+            'secret': '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',
         },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
@@ -75,7 +75,7 @@ SOCIALACCOUNT_PROVIDERS = {
 from django.urls import reverse_lazy
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
-LOGIN_REDIRECT_URL= 'http://127.0.0.1:8055'
+LOGIN_REDIRECT_URL= 'http://127.0.0.1:8055/searchai'
 import os
 TEMPLATES = [
     {
@@ -156,4 +156,7 @@ load_dotenv()
 
 # Fetch the API Key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 

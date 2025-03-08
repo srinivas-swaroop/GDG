@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,5 +88,158 @@
     {% endif %}
     
 
+</body>
+</html> -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #FF6F00, #e8e5df);
+            font-family: IBM Plex Mono, monospace;
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 200px;
+            height: 200px;
+            margin-bottom: -20px;
+        }
+
+        .typewriter-container {
+            height: 70px;
+        }
+
+        .typewriter p {
+            font-size: 38px;
+            color: black;
+        }
+
+        .search {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .search input {
+            width: 50rem;
+            height: 2rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1100px;
+            margin: auto;
+            font-family: Dancing Script, cursive;
+        }
+
+        .recipe-box {
+            flex: 1;
+            min-width: 280px;
+            max-width: 32%;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+            text-align: left;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .recipe-box {
+                max-width: 48%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .recipe-box {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo">
+    </div>
+    <div class="typewriter-container">
+        <div class="typewriter">
+            <p>Type it, taste it—AI-driven recipes at your fingertips!!</p>
+        </div>
+    </div>
+    <form class="search" method="POST">
+        {% csrf_token %}
+        <input type="text" name="input_text" id="input_text" placeholder="Enter recipe name" required>
+        <button type="submit" class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+    
+    {% if response or response1 or response2 %}
+        <h2>Generated Recipe:</h2>
+        <div class="container">
+            {% if response %}
+            <div class="recipe-box">
+                <h3>Overview</h3>
+                {{ response|safe }}
+            </div>
+            {% endif %}
+            {% if response1 %}
+            <div class="recipe-box">
+                <h3>Step-by-Step Instructions</h3>
+                {{ response1|safe }}
+            </div>
+            {% endif %}
+            {% if response2 %}
+            <div class="recipe-box">
+                <h3>Healthier Alternatives</h3>
+                {{ response2|safe }}
+            </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No data available. Please enter a recipe name.</p>
+    {% endif %}
 </body>
 </html>

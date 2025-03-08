@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutribites</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="Intro.css"> -->
+</head>
+<body>
+    <div class="box1">
+        <div class="d-flex flex-row justify-content-center">
+            <img src="https://res.cloudinary.com/drh2p5pqy/image/upload/v1741285634/Brown_Minimalist_Aesthetic_Bakery_Logo-removebg-preview_rdtpmc.png" class="image-edits">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>
+                        Welcome to NutriBites! Your AI-powered kitchen companion for healthier, smarter, and tastier meals
+                    </h1>
+                </div>
+            </div>
+        </div> 
+        <div class="d-flex flex-row justify-content-center">
+            <a href="{% url 'optionsman' %}">
+                <button class="button">Aroma inside!!</button>
+            </a>
+        </div>          
+    </div>
+    <style>
+        .box1{
+    background:linear-gradient(to left, rgb(255, 111, 0),rgb(232, 229, 223));
+    height:100vh;
+    background-size:cover;
+}
+.box2{
+    height:15vh;
+    width:100vw;
+    background-color:#ffffff;
+}
+.image-edits{
+    height:50vh;
+    width:30vw;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+h1{
+    color:#040404;
+    font: size 1.5em;
+    font-family:"Playfair Display",serif;
+    font-weight:500px;
+    padding:20px;
+}
+h1 {
+    font-size: clamp(1.5rem, 5vw, 3rem); /* Responsive font size */
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff8a00, 0 0 10px #ff8a00, 0 0 15px #da1b60;
+    animation: glow 1.5s infinite alternate, float 0.7s ease-in-out infinite;
+}
+
+/* Glow Effect */
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #ff8a00, 0 0 10px #ff8a00; }
+    100% { text-shadow: 0 0 10px #ff8a00, 0 0 20px #da1b60; }
+}
+
+/* Floating Effect */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+@media screen and (max-width: 750px) {
+    .image-edits {
+        max-width: 95%;
+        padding: 20px;
+        width:60vw;
+        height:50vh;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .image-edits {
+        max-width: 95%;
+        padding: 20px;
+        width:40vw;
+        height:50vh;
+    }
+}
+@media screen and (max-width: 570px) {
+    .image-edits {
+        max-width: 95%;
+        padding: 20px;
+        width:60vw;
+        height:50vh;
+    }
+}
+.button{
+    background-color: #FF6F00;
+    height:50px;
+    width:150px;
+    margin:10px;
+    border-radius:20px;
+    border:none;
+    font: size 1.5em;
+    box-shadow: 0 0 5px #fbfbfc, 0 0 15px #f0f0f3, 0 0 20px #fdfcfd;
+    transition: all 0.4s ease;
+}
+.button:hover {
+    background-color: rgb(232, 229, 223);
+    /* color: #1f0909; */
+    box-shadow: 0 0 20px rgb(255, 111, 0), 0 0 30px rgb(255, 111, 0), 0 0 40px rgb(255, 111, 0);
+}
+@media (max-width:768px){
+    .button{
+        height:50px;
+        width:150px;
+        border-radius:10px;
+    }
+}
+    </style>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutribitesChoose</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="Choose2.css"> -->
+</head>
+</head>
+<body>
+    <div class="box1">
+        <div class="text-container">
+            <h2>
+                Indulge yourself into the world where you could sense yummy in your tummy without compromising on nutrition and health
+            </h2>
+        </div>    
+        <div class="container-fluid">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-6 order-md-1">
+                    <div class="boxes1 shadow d-flex justify-content-start w-75 m-2">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="box content-box">
+                                <h3>New User?</h3>
+                                <a href="{% url 'signupman' %}">
+                                    <button class="button">Log In</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 d-flex justify-content-end">
+                    <div class="boxes2 shadow w-75 m-2 ms-md-auto">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="box content-box">
+                                <h3>Registered User?</h3>
+                                <a href="{% url 'login_view' %}">
+                                    <button class="button">Log In</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-end vh-100">
+            <img src="https://res.cloudinary.com/drh2p5pqy/image/upload/v1741330597/Screenshot_2025-03-07_122231-removebg-preview_xauqqn.png" class="image-edits w-100">
+        </div>
+    </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+h2 {
+   font-family: "Playfair Display", serif;
+}
+
+
+.box1 {
+    background: linear-gradient(to bottom ,rgb(255, 111, 0), rgb(232, 229, 223));
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-edits {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    object-fit: cover;
+}
+h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+    font-weight:bold;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(30px);
+    animation:  glow 1.5s infinite alternate, fadeSlideUp 1.5s ease-out forwards, textPulse 3s infinite alternate ease-in-out 1.5s, extraGlow 2s infinite alternate ease-in-out;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #ff8a00, 0 0 10px #ff8a00; }
+    100% { text-shadow: 0 0 10px #ff8a00, 0 0 20px #da1b60; }
+}
+
+@keyframes fadeSlideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textPulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+@keyframes extraGlow {
+    0% { text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00; }
+    100% { text-shadow: 0 0 20px #ffdd44, 0 0 40px #ffdd44; }
+}
+@media(min-width:768px){
+    .text-width{
+        margin-top:30px;
+    }
+}
+.text-container {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    text-align: center;
+}
+.boxes1{
+    height:15vh;
+    background-color:antiquewhite;
+    border-radius:5px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.boxes2{
+    height:15vh;
+    background-color:antiquewhite;
+    border-radius:5px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.button {
+    background-color: #FF6F00;
+    height: 40px;
+    width: 150px;
+    border-radius: 20px;
+    border:none;
+    font-size: 1.2rem;
+    box-shadow: 0 0 5px #e7bf6b, 0 0 15px #e7bf6b, 0 0 20px #e7bf6b;
+    transition: all 0.4s ease;
+}
+
+.button:hover {
+    background-color: rgb(249, 248, 247);
+    box-shadow: 0 0 20px rgb(255, 111, 0), 0 0 30px rgb(255, 111, 0), 0 0 40px rgb(255, 111, 0);
+}
+.boxes1 {
+    display: flex;
+    flex-direction: column; /* Stack text and button */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Ensure text is centered */
+}
+
+@media (max-width: 768px) {
+    .boxes2{
+        margin-top:50px;
+    }
+}
+/* BASE STYLING: Opacity & Gradient Border */
+.boxes1, .boxes2 {
+    background: rgba(255, 248, 220, 0.6); /* Light cream with 60% opacity */
+    border: 3px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Gradient Border Effect */
+.boxes1::before, .boxes2::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    border-radius: 22px;
+    filter: blur(5px);
+}
+
+/* 💡 BACKGROUND COLOR CHANGE AFTER POP */
+.boxes1.pop-in, .boxes2.pop-in {
+    background: rgba(240, 176, 78, 0.8); /* Light Orange */
+    transition: background 1.5s ease-in-out;
+}
+
+/* 🔥 WAVING EFFECT AFTER POP-IN */
+@keyframes wavingEffect {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(1deg); }
+    50% { transform: rotate(-1deg); }
+    75% { transform: rotate(1deg); }
+}
+
+.boxes1.wave, .boxes2.wave {
+    animation: wavingEffect 1s infinite ease-in-out;
+}
+
+/* 🚀 POPPING LEFT & RIGHT ANIMATIONS */
+@keyframes popLeft {
+    from { transform: translateX(-100px) scale(0.9); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+@keyframes popRight {
+    from { transform: translateX(100px) scale(0.9); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+/* APPLYING DIFFERENT ANIMATIONS */
+.boxes1 {
+    animation: popLeft 1s ease-out forwards;
+}
+.boxes2 {
+    animation: popRight 1s ease-out forwards;
+}
+
+/* ✨ ADD WAVING EFFECT AFTER POP-IN */
+.boxes1.pop-in, .boxes2.pop-in {
+    animation: wavingEffect 1.5s infinite ease-in-out;
+}
+/* ✨ Gradient Border Animation */
+@keyframes borderGlow {
+    0% { border-color: #ff7a00; }
+    25% { border-color: #ffcc00; }
+    50% { border-color: #ff8800; }
+    75% { border-color: #ffcc00; }
+    100% { border-color: #ff7a00; }
+}
+
+/* Apply to boxes */
+.boxes1, .boxes2 {
+    border: 3px solid #ff7a00; /* Initial border */
+    animation: borderGlow 3s infinite alternate ease-in-out;
+}
+@media (max-width: 396px) {
+    .boxes1{
+        margin-top:100px;
+    }
+}
+    </style>
+</body>
+</html>

@@ -16,6 +16,15 @@ from django.views.decorators.csrf import csrf_exempt  # For handling POST reques
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 API_KEY = os.getenv("GEMINI_API_KEY")  # Ensure this is set in your .env file or settings
 
+def signupman(request):
+    return render(request, "signupman.html")
+
+def homearoma(request):
+    return render(request, "homeman.html")
+
+def optionsman(request):
+    return render(request, "optionsman.html")
+
 @csrf_exempt  # Use this only if CSRF token is not required
 def home(request):
     response_text = response_text1 = response_text2 = None  # Set as None instead of default text
@@ -70,17 +79,17 @@ def register(request):
         password1=data.get('password2')
         if password1!=password:
             messages.error(request, "Password didnt match")
-            return render(request,'register.html')
+            return render(request,'signupman.html')
         
         if User.objects.filter(username=user_name).exists():
             messages.error(request, "Username already taken!")
-            return render(request, "register.html")
+            return render(request, "signupman.html")
         user=User.objects.create(username=user_name,email=email)
         user.set_password(password)
         user.save()
         login(request,user)
         return redirect('home')
-    return render(request,'register.html')
+    return render(request,'signupman.html')
 
 def login_view(request):
     if request.method=="POST":
