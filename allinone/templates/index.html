@@ -200,6 +200,61 @@
     </style>
 </head>
 <body>
+
+    <!-- Logout Link -->
+    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+
+    <!-- Logo Section -->
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo">
+    </div>
+
+    <!-- Typewriter Effect Text -->
+    <div class="typewriter-container">
+        <div class="typewriter">
+            <p>Type it, taste it—AI-driven recipes at your fingertips!!</p>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <form class="search" method="POST">
+        {% csrf_token %}
+        <input type="text" name="input_text" id="input_text" placeholder="Enter recipe name" required>
+        <button type="submit" class="search-btn">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+
+    <!-- Generated Recipe Output -->
+    {% if response or response1 or response2 %}
+        <h2>Generated Recipe:</h2>
+        <div class="container">
+            {% if response %}
+            <div class="recipe-box">
+                <h3>Ingredients & Nutritional Values</h3>
+                <div>{{ response|safe }}</div>
+            </div>
+            {% endif %}
+            {% if response1 %}
+            <div class="recipe-box">
+                <h3>Step-by-Step Instructions</h3>
+                <div>{{ response1|safe }}</div>
+            </div>
+            {% endif %}
+            {% if response2 %}
+            <div class="recipe-box">
+                <h3>Healthier Alternatives</h3>
+                <div>{{ response2|safe }}</div>
+            </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p class="no-data">No data available. Please enter a recipe name.</p>
+    {% endif %}
+
+</body>
+
+<!-- <body>
     <a href="{% url 'logout' %}">Logout</a>
     
     <div class="logo">
@@ -243,5 +298,5 @@
     {% else %}
         <p>No data available. Please enter a recipe name.</p>
     {% endif %}
-</body>
+</body> -->
 </html>
