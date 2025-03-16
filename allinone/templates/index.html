@@ -203,6 +203,8 @@
 
     <!-- Logout Link -->
     <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    <a href="{% url 'historyview' %}" class="logout-btn">History</a>
+
 
     <!-- Logo Section -->
     <div class="logo">
@@ -212,6 +214,7 @@
     <!-- Typewriter Effect Text -->
     <div class="typewriter-container">
         <div class="typewriter">
+            {{username}}
             <p>Type it, taste it—AI-driven recipes at your fingertips!!</p>
         </div>
     </div>

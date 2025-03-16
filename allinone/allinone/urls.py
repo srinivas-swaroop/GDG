@@ -16,18 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from core.views import * # Import from 'core' instead of 'allinone'
-
+from core.views import * 
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("searchai", home, name="home"),
+    path("searchai/",home, name="home"),
     path('login/',login_view,name='login_view'),
     path('accounts/',include('allauth.urls')),
     path('', homearoma, name='homearoma'),
     path('options/', optionsman, name='optionsman'),
     path('signup/', register, name='signupman'),
     path('accounts/logout/', logout, name='logout'),
+    path('history/', histories, name="historyview")
 
     
 ]
