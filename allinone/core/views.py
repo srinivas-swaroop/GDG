@@ -17,6 +17,7 @@ import asyncio
 import aiohttp
 
 from .models import *
+import jwt
 
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 API_KEY = os.getenv("GEMINI_API_KEY")  # Ensure this is set in your .env file or settings
@@ -49,10 +50,17 @@ async def fetch_response(session, text):
     params = {"key": API_KEY}
     payload = {"contents": [{"parts": [{"text": text}]}]}
 
+    BLOCKED_WORDS = ["not found", "invalid", "sorry", "inappropriate", "illegal", "harmful", "offensive", "cannot"] 
+
     try:
         async with session.post(GEMINI_API_URL, headers=headers, json=payload, params=params) as response:
             data = await response.json()
-            return data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "").strip()
+            text_response = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "").strip()
+            
+            if any(word.lower() in text_response.lower() for word in BLOCKED_WORDS):
+                return "No Food Found, Check For Spelling Mistakes"
+
+            return text_response
     except Exception:
         return None
 
@@ -62,16 +70,25 @@ async def process_requests(user_input):
     user_input3 = user_input + " alternate ingredients for this recipe rather than regular one for health benefits, only this no other extra information strictly these as per instruction include heading while describing also mention how to use it in making brief steps"
 
     async with aiohttp.ClientSession() as session:
-        tasks = [fetch_response(session, text) for text in [user_input1, user_input2, user_input3]]
-        responses = await asyncio.gather(*tasks)
 
-    return [markdown.markdown(text) if text else None for text in responses]
+        response1 = await fetch_response(session, user_input1)
+        
+        
+        if response1 == "No Food Found, Check For Spelling Mistakes":
+            return [response1, None, None]
+
+       
+        tasks = [fetch_response(session, text) for text in [user_input2, user_input3]]
+        response2, response3 = await asyncio.gather(*tasks)
+        print(tasks)
+
+    return [markdown.markdown(response1) if response1 else None,
+            markdown.markdown(response2) if response2 else None,
+            markdown.markdown(response3) if response3 else None]
 
 def home(request):
     response_text = response_text1 = response_text2 = None  
     username = request.user.username if request.user.is_authenticated else "Guest"
-    print("User:", request.user)  # Debugging user authentication
-    print("Is Authenticated:", request.user.is_authenticated)
 
     if request.method == "POST":
         user_input = request.POST.get("input_text", "").strip()

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import jwt
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -67,7 +68,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': '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',
         },
         'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
+        'AUTH_PARAMS': {'prompt': 'select_account'},
         'METHOD': 'oauth2',
         'VERIFIED_EMAIL': True,
     }

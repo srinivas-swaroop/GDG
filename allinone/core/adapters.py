@@ -3,6 +3,7 @@ from allauth.core.exceptions import ImmediateHttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login
+import jwt  
 
 User = get_user_model()
 
